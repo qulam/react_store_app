@@ -12,7 +12,7 @@ import {
 } from "../../../actions/Payment";
 import Snackbar from "@material-ui/core/Snackbar/Snackbar";
 import Slide from "@material-ui/core/Slide/Slide";
-import {TOGGLE_BUCKET} from "../../../constants/ActionTypes";
+import {RESET_PAYMENT_FORM_ERRORS} from "../../../constants/ActionTypes";
 
 function TransitionUp(props) {
     return <Slide {...props} direction="up"/>;
@@ -38,6 +38,12 @@ const Payment = () => {
                 });
                 setTotalPrice(total.toFixed(2));
             }
+        }
+    }, []);
+
+    useEffect(() => {
+        return () => {
+            dispatch({type: RESET_PAYMENT_FORM_ERRORS, payload: null});
         }
     }, []);
 

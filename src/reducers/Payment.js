@@ -4,6 +4,7 @@ import {SET_PAYMENT_FORM_ERRORS} from "../constants/ActionTypes";
 import {SET_PAYMENT_LOADING} from "../constants/ActionTypes";
 import {SET_SECURITY_ERROR} from "../constants/ActionTypes";
 import {PAYMENT_SUCCESS} from "../constants/ActionTypes";
+import {RESET_PAYMENT_FORM_ERRORS} from "../constants/ActionTypes";
 
 const INIT_STATE = {
     form: {
@@ -94,6 +95,35 @@ export default (state = INIT_STATE, action) => {
                     card_number: "",
                     csv: "",
                     expire_date: "",
+                },
+            }
+        }
+        case RESET_PAYMENT_FORM_ERRORS: {
+            return {
+                ...state,
+                form: {
+                    name_on_card: "",
+                    card_number: "",
+                    csv: "",
+                    expire_date: "",
+                },
+                formErrors: {
+                    name_on_card: {
+                        error: false,
+                        message: ""
+                    },
+                    card_number: {
+                        error: false,
+                        message: ""
+                    },
+                    csv: {
+                        error: false,
+                        message: ""
+                    },
+                    expire_date: {
+                        error: false,
+                        message: ""
+                    },
                 },
             }
         }

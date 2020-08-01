@@ -9,10 +9,15 @@ import {
     SIGN_OUT,
     SET_PAYMENT_ONE_CLICK,
     CHANGE_ONE_CLICK_PAYMENT_COUNT,
-    ADD_PRODUCT_TO_CARD, INCREMENT_BUCKET_PRODUCT, DECREMENT_BUCKET_PRODUCT, RESET_PAID_PRODUCTS,
+    ADD_PRODUCT_TO_CARD,
+    INCREMENT_BUCKET_PRODUCT,
+    DECREMENT_BUCKET_PRODUCT,
+    RESET_PAID_PRODUCTS,
+    TOGGLE_BUCKET,
 } from "../constants/ActionTypes";
 
 const INIT_STATE = {
+    toggleBucket: true,
     initUrl: "",
     username: "",
     password: "",
@@ -158,6 +163,12 @@ export default (state = INIT_STATE, action) => {
                 ...state,
                 selectedProducts: [],
                 paymentOneClick: null,
+            }
+        }
+        case TOGGLE_BUCKET: {
+            return {
+                ...state,
+                toggleBucket: action.payload,
             }
         }
         default:

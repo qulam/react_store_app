@@ -44,7 +44,8 @@ export const checkPaymentSecurity = (paymentForm, paymentOneClick, _history) => 
                             });
                             dispatch({type: PAYMENT_SUCCESS, payload: "The operation was successful",});
                             dispatch({type: RESET_PAID_PRODUCTS, payload: null});
-                            _history.push('/app/dashboard');
+                            window.location.href = '/app/dashboard';
+                            // _history.push('/app/dashboard');
                         }
                     });
                 } else {
@@ -75,7 +76,8 @@ export const orderSelectedProducts = (paymentObject, selectedProducts, _history)
                 });
                 dispatch({type: PAYMENT_SUCCESS, payload: "The operation was successful",});
                 dispatch({type: RESET_PAID_PRODUCTS, payload: null});
-                _history.push('/app/dashboard');
+                window.location.href = '/app/dashboard';
+                // _history.push('/app/dashboard');
             }
         })
         .catch(err => console.log(err))

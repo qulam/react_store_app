@@ -27,7 +27,7 @@ const Products = (props) => {
                             count: product.count,
                             storeId: product.storeId,
                         };
-                        if(product.count !== 0){
+                        if(product.count > 0){
                             return (
                                 <Product key={product.id} {...config}/>
                             )

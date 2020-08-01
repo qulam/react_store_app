@@ -8,12 +8,15 @@ import TemporaryDrawer from "../components/Bucket";
 class App extends React.Component {
 
     render() {
+        const pathName = window.location.pathname;
         return (
             <Container>
                 <Header/>
                 <main className="app-main-content-wrapper">
                     <div className="app-main-content">
-                        <TemporaryDrawer />
+                        {
+                            pathName !== '/app/payment' && <TemporaryDrawer />
+                        }
                         <Switch>
                             <Route path={`/app/dashboard`} component={asyncComponent(() => import('./routes/Dashboard'))}/>
                             <Route path={`/app/products/:title/:id`} component={asyncComponent(() => import('./routes/Products'))}/>

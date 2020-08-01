@@ -12,6 +12,7 @@ import {
 } from "../../../actions/Payment";
 import Snackbar from "@material-ui/core/Snackbar/Snackbar";
 import Slide from "@material-ui/core/Slide/Slide";
+import {TOGGLE_BUCKET} from "../../../constants/ActionTypes";
 
 function TransitionUp(props) {
     return <Slide {...props} direction="up"/>;
@@ -33,7 +34,7 @@ const Payment = () => {
             } else {
                 let total = 0;
                 selectedProducts.forEach(item => {
-                   total += parseInt(item.count) * parseFloat(item.price)
+                    total += parseInt(item.count) * parseFloat(item.price)
                 });
                 setTotalPrice(total.toFixed(2));
             }
@@ -85,9 +86,9 @@ const Payment = () => {
     const onSubmit = (e) => {
         e.preventDefault();
         if (allowSubmit()) {
-            if(paymentOneClick){
+            if (paymentOneClick) {
                 dispatch(checkPaymentSecurity(form, paymentOneClick, history));
-            }else if(selectedProducts.length > 0){
+            } else if (selectedProducts.length > 0) {
                 dispatch(orderSelectedProducts(form, selectedProducts, history));
             }
             return false;

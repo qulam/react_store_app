@@ -69,7 +69,7 @@ class App extends Component {
     render() {
         const {match, location, access_token, authUser,} = this.props;
         if (location.pathname === '/') {
-            if (access_token === null) {
+            if (access_token === null || !authUser) {
                 return (<Redirect to={'/signin'}/>);
             } else {
                 return (<Redirect to={'/app/dashboard'}/>);

@@ -74,11 +74,9 @@ const SignIn = () => {
         }
     };
 
-    useEffect(() => {
-        if (access_token && authUser) {
-            history.push('/app/dashboard');
-        }
-    }, [authUser, access_token]);
+    if(access_token && authUser){
+        return <Redirect to={'/app/dashboard'} />
+    }
 
     return (
         <Container>

@@ -94,6 +94,8 @@ export default (state = INIT_STATE, action) => {
                 access_token: null,
                 authUser: null,
                 isLoading: false,
+                selectedProducts: [],
+                paymentOneClick: null,
             }
         }
         case SIGNIN_ERROR: {

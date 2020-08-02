@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import ProductView from "../ProductView";
 import {addProductToCard} from "../../actions/Auth";
 import {useDispatch, useSelector} from "react-redux";
+import PropTypes from 'prop-types';
 
 const Product = (props) => {
     const dispatch = useDispatch();
@@ -63,6 +64,16 @@ const Product = (props) => {
         </div>
     )
 
+};
+
+Product.propTypes = {
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    attachment: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    count: PropTypes.number,
+    storeId: PropTypes.number,
 };
 
 export default Product;

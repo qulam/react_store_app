@@ -7,10 +7,15 @@ const Products = (props) => {
     const dispatch = useDispatch();
     const products = useSelector(state => state.products.products);
 
+    const fetchProductCounts = () => {
+        dispatch(getProductsCounts());
+    };
+
     useEffect(() => {
         const {id} = props.match.params;
-        dispatch(getProductsByCategory(id));
-        dispatch(getProductsCounts());
+        dispatch(getProductsByCategory(id, () => {
+            fetchProductCounts();
+        }));
     }, []);
 
     return (

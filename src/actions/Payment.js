@@ -1,4 +1,5 @@
 import axios from "../util/Api";
+import MSA from "../util/MicroServiceApi";
 
 import {
     CHANGE_PAYMENT_FORM,
@@ -44,7 +45,7 @@ export const checkPaymentSecurity = (paymentForm, paymentOneClick, _history) => 
                             });
                             dispatch({type: PAYMENT_SUCCESS, payload: "The operation was successful",});
                             dispatch({type: RESET_PAID_PRODUCTS, payload: null});
-                            window.location.href = '/app/dashboard';
+                            window.location.href = '/app/dashboard'; /*without router*/
                             // _history.push('/app/dashboard');
                         }
                     });
@@ -69,15 +70,36 @@ export const orderSelectedProducts = (paymentObject, selectedProducts, _history)
     axios.get(`payment-security?name_on_card=${name_on_card}&card_number=${card_number}&csv=${csv}&expire_date=${expire_date}`)
         .then(res => {
             if (res.status === 200) {
-                dispatch({type: SET_PAYMENT_LOADING, payload: false});
-                dispatch({
-                    type: REFRESH_MULTIPLE_PRODUCT_COUNT,
-                    payload: selectedProducts,
+
+                const selectedProductsLog = selectedProducts.map(item => {
+                    return {
+                        product_id: item.id,
+                        count: item.availableCount - item.count
+                    }
                 });
-                dispatch({type: PAYMENT_SUCCESS, payload: "The operation was successful",});
-                dispatch({type: RESET_PAID_PRODUCTS, payload: null});
-                window.location.href = '/app/dashboard';
-                // _history.push('/app/dashboard');
+
+                /*
+                * *
+                * The FAKE-JSON-SERVER api does not have the ability to update a lot of data.
+                * This service (127:0.0.1:3002/refresh-store/) was written to solve this problem.
+                * Look at /services/microservice.js (Express Api)
+                * */
+
+                MSA.post('refresh-store', selectedProductsLog)
+                    .then(res => {
+                        if (res.status === 200) {
+                            dispatch({type: SET_PAYMENT_LOADING, payload: false});
+                            dispatch({
+                                type: REFRESH_MULTIPLE_PRODUCT_COUNT,
+                                payload: selectedProducts,
+                            });
+                            dispatch({type: PAYMENT_SUCCESS, payload: "The operation was successful",});
+                            dispatch({type: RESET_PAID_PRODUCTS, payload: null});
+                            window.location.href = '/app/dashboard'; /*without router*/
+                            // _history.push('/app/dashboard');
+                        }
+                    })
+                    .catch(err => console.log(err));
             }
         })
         .catch(err => console.log(err))

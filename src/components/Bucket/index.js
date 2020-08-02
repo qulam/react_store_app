@@ -8,8 +8,7 @@ import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import {useSelector, useDispatch} from "react-redux";
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
-import {decrementBucketProduct, incrementBucketProduct} from "../../actions/Auth";
-import {Button, Form} from "react-bootstrap";
+import {decrementBucketProduct, incrementBucketProduct, setPaymentOneClick} from "../../actions/Auth";
 import {NavLink} from "react-router-dom";
 
 const useStyles = makeStyles({
@@ -21,6 +20,11 @@ const useStyles = makeStyles({
     },
 });
 
+/**
+ * @return {null}
+ * @return {null}
+ */
+
 export default function TemporaryDrawer() {
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -28,14 +32,14 @@ export default function TemporaryDrawer() {
     const [state, setState] = React.useState({
         open: false,
     });
-    const {selectedProducts} = useSelector(state => state.auth);
+    const {selectedProducts, toggleBucket} = useSelector(state => state.auth);
     const [sumPrice, setSumPrice] = useState(0);
 
     const toggleDrawer = (open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
         }
-
+        dispatch(setPaymentOneClick(null));
         setState({...state, open: open});
     };
 
@@ -113,6 +117,10 @@ export default function TemporaryDrawer() {
             <Divider/>
         </div>
     );
+
+    if(!toggleBucket){
+        return null;
+    }
 
     return (
         <div>

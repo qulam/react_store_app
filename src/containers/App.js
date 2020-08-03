@@ -60,12 +60,6 @@ const RestrictedRoute = ({component: Component, authUser, token, ...rest}) => {
 
 class App extends Component {
 
-    componentWillMount() {
-        if (this.props.initURL === '') {
-            this.props.setInitUrl(this.props.history.location.pathname);
-        }
-    }
-
     render() {
         const {match, location, access_token, authUser,} = this.props;
         if (location.pathname === '/') {

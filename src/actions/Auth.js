@@ -25,6 +25,7 @@ export const signin = ({username, password, history}) => (dispatch) => {
                     let authUser = res.data[0];
                     delete authUser["password"];
                     const access_token = JSON.stringify(authUser.access);
+
                     axios.defaults.headers.common['Authorization'] = "Bearer " + authUser.access;
                     localStorage.setItem('access_token', access_token);
                     localStorage.setItem('authUser', JSON.stringify(authUser));
